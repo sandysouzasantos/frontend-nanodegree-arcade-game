@@ -44,16 +44,16 @@ Player.prototype.render = function () {
 Player.prototype.handleInput = function (direction) {
     switch (direction) {
         case 'up':
-            this.y -= 60;
+            this.y -= 85;
             break;
         case 'right':
-            this.x += 60;
+            this.x += 100;
             break;
         case 'left':
-            this.x -= 60;
+            this.x -= 100;
             break;
         case 'down':
-            this.y += 60;
+            this.y += 85;
             break;
     }
 };
