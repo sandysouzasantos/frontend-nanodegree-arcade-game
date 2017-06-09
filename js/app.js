@@ -34,10 +34,7 @@ var Player = function () {
 };
 
 Player.prototype.update = function () {
-    if (this.y === 50) {
-        this.x = 200;
-        this.y = 390;
-    }
+
 };
 
 Player.prototype.render = function () {
@@ -47,7 +44,15 @@ Player.prototype.render = function () {
 Player.prototype.handleInput = function (direction) {
     switch (direction) {
         case 'up':
-            this.y -= 85;
+            if (this.y > 135) {
+                this.y -= 85;
+            } else {
+                this.y = 50;
+                setTimeout(function () {
+                    player.x = 200;
+                    player.y = 390;
+                }, 600);
+            }
             break;
         case 'right':
             if (this.x < 400) {
@@ -65,8 +70,6 @@ Player.prototype.handleInput = function (direction) {
             }
             break;
     }
-
-
 };
 
 // Now instantiate your objects.
