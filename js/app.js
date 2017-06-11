@@ -78,11 +78,12 @@ Player.prototype.handleInput = function (direction) {
 var allEnemies = [];
 
 function spawnEnemies() {
-    var positions = [60, 145, 230];
+    var positions = [50, 135, 220];
 
     setInterval(function () {
         allEnemies.push(new Enemy(positions[Math.floor(Math.random() * 3)], 50));
-    }, 3000);
+        console.log(allEnemies);
+    }, 4000);
 }
 
 spawnEnemies();
@@ -100,3 +101,17 @@ document.addEventListener('keyup', function (e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+/*
+ function collision() {
+ for (var i = 0; i < allEnemies.length; i++) {
+ /!*if (player.x === allEnemies[i].x) {
+ player.x = 200;
+ player.y = 390;
+ }*!/
+ console.log(allEnemies[i].x);
+
+ }
+ }
+
+ collision();
+ */
