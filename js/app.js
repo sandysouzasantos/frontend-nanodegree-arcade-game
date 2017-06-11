@@ -7,6 +7,8 @@ var Enemy = function (y, speed) {
     this.sprite = 'images/enemy-bug.png';
     this.x = 0;
     this.y = y;
+    this.width = 50;
+    this.height = 50;
     this.speed = speed;
 };
 
@@ -31,10 +33,12 @@ var Player = function () {
     this.sprite = 'images/char-boy.png';
     this.x = 200;
     this.y = 390;
+    this.width = 50;
+    this.height = 50;
 };
 
 Player.prototype.update = function () {
-
+    collision();
 };
 
 Player.prototype.render = function () {
@@ -82,7 +86,6 @@ function spawnEnemies() {
 
     setInterval(function () {
         allEnemies.push(new Enemy(positions[Math.floor(Math.random() * 3)], 50));
-        console.log(allEnemies);
     }, 4000);
 }
 
@@ -101,17 +104,21 @@ document.addEventListener('keyup', function (e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-/*
- function collision() {
- for (var i = 0; i < allEnemies.length; i++) {
- /!*if (player.x === allEnemies[i].x) {
- player.x = 200;
- player.y = 390;
- }*!/
- console.log(allEnemies[i].x);
 
- }
- }
+function collision() {
+    allEnemies.forEach(function (enemy) {
+        if ((player.x >= enemy.x && player.x <= (enemy.x + enemy.width) &&
+            player.y >= enemy.y && player.y <= (enemy.y + enemy.height)) ||
+            (player.x >= enemy.x && player.x <= (enemy.x + enemy.width) &&
+            (player.y + player.height) >= enemy.y && (player.y + player.height) <= (enemy.y + enemy.height)) ||
+            ((player.x + player.width) >= enemy.x && (player.x + player.width) <= (enemy.x + enemy.width) &&
+            player.y >= enemy.y && player.y <= (enemy.y + enemy.height)) ||
+            ((player.x + player.width) >= enemy.x && (player.x + player.width) <= (enemy.x + enemy.width) &&
+            (player.y + player.height) >= enemy.y && (player.y + player.height) <= (enemy.y + enemy.height))) {
+                player.x = 200;
+                player.y = 390;
+        }
+    });
+}
 
- collision();
- */
+
