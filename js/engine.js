@@ -14,6 +14,7 @@
  * a little simpler to work with.
  */
 
+// Game state. If false the game is paused.
 var playing = true;
 
 var Engine = (function (global) {

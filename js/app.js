@@ -81,6 +81,7 @@ Player.prototype.handleInput = function (direction) {
 // Place the player object in a variable called player
 var allEnemies = [];
 
+// Spawns enemies from time to time.
 function spawnEnemies() {
     var positions = [50, 135, 220];
 
@@ -92,6 +93,7 @@ function spawnEnemies() {
 spawnEnemies();
 
 var player = new Player();
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function (e) {
@@ -105,6 +107,7 @@ document.addEventListener('keyup', function (e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+// Detect collision between player and enemies.
 function collision() {
     allEnemies.forEach(function (enemy) {
         if ((player.x >= enemy.x && player.x <= (enemy.x + enemy.width) &&
