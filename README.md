@@ -1,10 +1,10 @@
-#Frontend Nanodegree Arcade Game
+# Frontend Nanodegree Arcade Game
 
 This repository is intended for building an arcade game
 proposed by Udacity as one of the steps to complete 
 the Frontend Developer Nanodegree Program.
 
-##How to play
+## How to play
 
 Execute the index.html file.
 
@@ -16,7 +16,7 @@ If you touch a bug while at score zero, you die.
 
 For to restart the game, refresh the page.
 
-##Author
+## Author
 
 Sandy Souza Santos.
 
