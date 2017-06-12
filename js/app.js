@@ -35,10 +35,12 @@ var Player = function () {
     this.y = 390;
     this.width = 50;
     this.height = 50;
+    this.score = 0;
 };
 
 Player.prototype.update = function () {
     collision();
+    document.getElementById('score').innerHTML = 'Score: ' + this.score;
 };
 
 Player.prototype.render = function () {
@@ -48,14 +50,12 @@ Player.prototype.render = function () {
 Player.prototype.handleInput = function (direction) {
     switch (direction) {
         case 'up':
-            if (this.y > 135) {
+            if (this.y > 50) {
                 this.y -= 85;
             } else {
-                this.y = 50;
-                setTimeout(function () {
-                    player.x = 200;
-                    player.y = 390;
-                }, 600);
+                this.score += 10;
+                this.x = 200;
+                this.y = 390;
             }
             break;
         case 'right':
@@ -85,8 +85,8 @@ function spawnEnemies() {
     var positions = [50, 135, 220];
 
     setInterval(function () {
-        allEnemies.push(new Enemy(positions[Math.floor(Math.random() * 3)], 50));
-    }, 4000);
+        allEnemies.push(new Enemy(positions[Math.floor(Math.random() * 3)], Math.floor(Math.random() * 201) + 100));
+    }, Math.floor(Math.random() * 501) + 500);
 }
 
 spawnEnemies();
@@ -115,10 +115,16 @@ function collision() {
             player.y >= enemy.y && player.y <= (enemy.y + enemy.height)) ||
             ((player.x + player.width) >= enemy.x && (player.x + player.width) <= (enemy.x + enemy.width) &&
             (player.y + player.height) >= enemy.y && (player.y + player.height) <= (enemy.y + enemy.height))) {
-                player.x = 200;
-                player.y = 390;
+            player.x = 200;
+            player.y = 390;
+            player.score -= 10;
+            if (player.score <= 0) {
+                ctx.font = '36pt serif';
+                ctx.textAlign = "center";
+                ctx.fillStyle = 'black';
+                ctx.fillText('Game Over!', 253, 303);
+                playing = false;
+            }
         }
     });
 }
-
-
