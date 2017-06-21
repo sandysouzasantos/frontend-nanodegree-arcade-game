@@ -39,7 +39,6 @@ var Player = function () {
 };
 
 Player.prototype.update = function () {
-    collision();
     document.getElementById('score').innerHTML = 'Score: ' + this.score;
 };
 
@@ -107,27 +106,4 @@ document.addEventListener('keyup', function (e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-// Detect collision between player and enemies.
-function collision() {
-    allEnemies.forEach(function (enemy) {
-        if ((player.x >= enemy.x && player.x <= (enemy.x + enemy.width) &&
-            player.y >= enemy.y && player.y <= (enemy.y + enemy.height)) ||
-            (player.x >= enemy.x && player.x <= (enemy.x + enemy.width) &&
-            (player.y + player.height) >= enemy.y && (player.y + player.height) <= (enemy.y + enemy.height)) ||
-            ((player.x + player.width) >= enemy.x && (player.x + player.width) <= (enemy.x + enemy.width) &&
-            player.y >= enemy.y && player.y <= (enemy.y + enemy.height)) ||
-            ((player.x + player.width) >= enemy.x && (player.x + player.width) <= (enemy.x + enemy.width) &&
-            (player.y + player.height) >= enemy.y && (player.y + player.height) <= (enemy.y + enemy.height))) {
-            player.x = 200;
-            player.y = 390;
-            player.score -= 10;
-            if (player.score <= 0) {
-                ctx.font = '36pt serif';
-                ctx.textAlign = "center";
-                ctx.fillStyle = 'black';
-                ctx.fillText('Game Over!', 253, 303);
-                playing = false;
-            }
-        }
-    });
-}
+

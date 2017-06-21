@@ -32,11 +32,38 @@ var Engine = (function (global) {
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
+    // Detect collision between player and enemies.
+    function collision() {
+        allEnemies.forEach(function (enemy) {
+            if ((player.x >= enemy.x && player.x <= (enemy.x + enemy.width) &&
+                player.y >= enemy.y && player.y <= (enemy.y + enemy.height)) ||
+                (player.x >= enemy.x && player.x <= (enemy.x + enemy.width) &&
+                (player.y + player.height) >= enemy.y && (player.y + player.height) <= (enemy.y + enemy.height)) ||
+                ((player.x + player.width) >= enemy.x && (player.x + player.width) <= (enemy.x + enemy.width) &&
+                player.y >= enemy.y && player.y <= (enemy.y + enemy.height)) ||
+                ((player.x + player.width) >= enemy.x && (player.x + player.width) <= (enemy.x + enemy.width) &&
+                (player.y + player.height) >= enemy.y && (player.y + player.height) <= (enemy.y + enemy.height))) {
+                player.x = 200;
+                player.y = 390;
+                player.score -= 10;
+                if (player.score <= 0) {
+                    ctx.font = '36pt serif';
+                    ctx.textAlign = "center";
+                    ctx.fillStyle = 'black';
+                    ctx.fillText('Game Over!', 253, 303);
+                    playing = false;
+                }
+            }
+        });
+    }
+
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
     function main() {
-        if (!playing) {return;}
+        if (!playing) {
+            return;
+        }
         /* Get our time delta information which is required if your game
          * requires smooth animation. Because everyone's computer processes
          * instructions at different speeds we need a constant value that
@@ -85,7 +112,7 @@ var Engine = (function (global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        collision();
     }
 
     /* This is called by the update function and loops through all of the
