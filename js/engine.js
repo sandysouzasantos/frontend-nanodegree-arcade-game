@@ -33,7 +33,7 @@ var Engine = (function (global) {
     doc.body.appendChild(canvas);
 
     // Detect collision between player and enemies.
-    function collision() {
+    function detectCollision() {
         allEnemies.forEach(function (enemy) {
             if ((player.x >= enemy.x && player.x <= (enemy.x + enemy.width) &&
                 player.y >= enemy.y && player.y <= (enemy.y + enemy.height)) ||
@@ -112,7 +112,7 @@ var Engine = (function (global) {
      */
     function update(dt) {
         updateEntities(dt);
-        collision();
+        detectCollision();
     }
 
     /* This is called by the update function and loops through all of the
